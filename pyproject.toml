@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepseek-web-client"
+version = "0.1.0"
+description = "Clean Python client for DeepSeek web application with session auth, PoW solver, streaming, and OpenAI-compatible endpoint"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "httpx>=0.27.0",
+    "wasmtime>=20.0.0",
+    "playwright>=1.40.0",
+    "pydantic>=2.0.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+    "python-multipart>=0.0.9",
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[project.scripts]
+deepseek-web = "deepseek_web.cli:main"
+deepseek-web-server = "deepseek_web.server.app:run_server"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["deepseek_web*"]
+
+[tool.setuptools.package-data]
+deepseek_web = ["assets/*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
